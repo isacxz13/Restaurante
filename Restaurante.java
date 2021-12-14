@@ -3,12 +3,11 @@ package test;
 import java.util.Scanner;
 
 public class Restaurante {
+    public static Scanner consola = new Scanner(System.in);
 
     public static void main(String[] args) {
-        
         //Inicializacion de variables
         //Inicializacion de Arrays(Arreglos unidimencionales)
-        Scanner consola = new Scanner(System.in);
         String nombre[] = new String[10];
         String empleado[] = new String[10];
         String ocupacion[] = new String[10];
@@ -18,7 +17,6 @@ public class Restaurante {
         
         //inicializacion de contadores
         int opcion;
-        int contador = 0;
         int contador2 = 0;
         
         //Damos inicio a los arrays intregando datos relacionados con el tipo de dato
@@ -45,124 +43,60 @@ public class Restaurante {
                 if(contador2 >= 1){
                     System.out.println("\n\n\n\n");
                 }
-                System.out.print("1. REVISAR MENU \n"
-                        + "2. INTEGRAR COMIDA \n"
-                        + "3. ELIMINAR COMIDA \n"
-                        + "4. REVISAR BEBIDAS \n"
-                        + "5. INTEGRACION DE BEBIDAS \n"
-                        + "6. ELIMINACION DE BEBIDAS \n"
-                        + "7. REVISAR EL PERSONAL \n"
-                        + "8. ALTA DE PERSONAL \n"
-                        + "9. BAJA DE PERSONAL \n"
-                        + "10. SALIR \n"
-                        + "-> ");
+                System.out.print("""
+                                 1. REVISAR MENU 
+                                 2. INTEGRAR COMIDA 
+                                 3. ELIMINAR COMIDA 
+                                 4. REVISAR BEBIDAS 
+                                 5. INTEGRACION DE BEBIDAS 
+                                 6. ELIMINACION DE BEBIDAS 
+                                 7. REVISAR EL PERSONAL 
+                                 8. ALTA DE PERSONAL 
+                                 9. BAJA DE PERSONAL 
+                                 10. SALIR 
+                                 ->  """);
                 opcion = consola.nextInt();
-
                 switch (opcion) {
                     //Utilizamos casos para cada uno de las descripciones del menu
                     case 1 -> {
                         System.out.println("\n\n REVISAR MENU");
-                        //Algoritmo para revisar
-                        for (int i = 0; i < nombre.length; i++) {
-                            if (nombre[i] != null) {
-                                System.out.println((i + 1) + " comida: " + nombre[i] + " precio: $" + precio[i]);
-                            }
-                        }
+                        verProductos(nombre, precio);
                     }
-                    //Algoritmo para integrar comida al array
                     case 2 -> {
                         System.out.println("\n\n INTEGRAR COMIDA");
-                        for (int i = 0; i < nombre.length; i++) {
-                            if (nombre[i] == null) {
-                                contador = i;
-                                break;
-                            }
-                        }
-                        System.out.print("""
-                                         nueva comida: 
-                                         nombre: """);
-                        nombre[contador] = consola.next();
-                        System.out.print("precio: ");
-                        precio[contador] = consola.nextDouble();
-                        System.out.println("LA INTEGRACION FUE UN EXITO: " + nombre[contador] + " $" + precio[contador]);
+                        agregarProdutos(nombre, precio);
                     }
-                    //Algoritmo para eliminar datos del array
                     case 3 -> {
                         System.out.println("\n\n ELIMINAR COMIDA");
-                        System.out.print("¿Que comida desea eliminar? \n -> ");
-                        int indice = consola.nextInt();
-                        precio[indice - 1] = 0;
-                        nombre[indice - 1] = null;
+                        eliminarProductos(nombre, precio);
                     }
                     case 4 -> {
-                        //Algoritmo para revisar
                         System.out.println("\n\n REVISAR BEBIDAS");
-                        for (int i = 0; i < bebida.length; i++) {
-                            if (bebida[i] != null) {
-                                System.out.println((i + 1) + " bebida: " + bebida[i] + " costo: $" + costo[i]);
-                            }
-                        }
+                        verProductos(bebida, costo);
                     }
-                    //Algoritmo para integrar datos al array
                     case 5 -> {
                         System.out.println("\n\n INTREGACION DE BEBIDAS");
-                        System.out.println("\n\n INTEGRAR COMIDA");
-                        for (int i = 0; i < bebida.length; i++) {
-                            if (bebida[i] == null) {
-                                contador = i;
-                                break;
-                            }
-                        }
-                        System.out.print("""
-                                         nueva bebida: 
-                                         nombre: """);
-                        bebida[contador] = consola.next();
-                        System.out.print("costo: ");
-                        costo[contador] = consola.nextDouble();
-                        System.out.println("LA INTEGRACION FUE UN EXITO: " + bebida[contador] + " $" + costo[contador]);
+                        agregarProdutos(bebida, costo);
                     }
-                    //Algoritmo para eliminar datos del array
                     case 6 -> {
-                        System.out.print("¿Que bebida desea eliminar? \n -> ");
-                        int indice = consola.nextInt();
-                        costo[indice-1] = 0; 
-                        bebida[indice-1]= null;
+                        eliminarProductos(bebida, costo);
                     }
-                    //Algoritmo para revisar
                     case 7 -> {
                         System.out.println("\n\n REVISAR EL PERSONAL");
-                        for (int i = 0; i < empleado.length; i++) {
-                            if (empleado[i] != null) {
-                                System.out.println("cedula " + (i + 1) + " nombre: " + empleado[i] + " ocupacion: " + ocupacion[i]);
-                            }
-                        }
+                        verPersonal(empleado, ocupacion);
                     }
                     //Algoritmo para integrar datos al array
                     case 8 -> {
                         System.out.println("\n\n ALTA DE PERSONAL");
-                        for (int i = 0; i < empleado.length; i++) {
-                            if (empleado[i] == null) {
-                                contador = i;
-                                break;
-                            }
-                        }
-                        System.out.print("""
-                                         nuevo empleado: 
-                                         nombre: """);
-                        empleado[contador] = consola.next();
-                        System.out.print("ocupacion: ");
-                        ocupacion[contador] = consola.next();
-                        System.out.println("LA ALTA FUE UN EXITO: " + empleado[contador] + " ocupacion: " + ocupacion[contador]);
+                        agregarPersonal(empleado, ocupacion);
                     }
                     case 9 -> {
-                        //Algoritmo para eliminar datos del array
                         System.out.println("\n\n BAJA DE PERSONAL");
-                        System.out.print("¿Que empleado desea eliminar? \n -> ");
+                        System.out.print("¿Que indice desea eliminar? \n -> ");
                         int indice = consola.nextInt();
+                        nombre[indice - 1] = null;
                         ocupacion[indice - 1] = null;
-                        empleado[indice - 1] = null;
                     }
-                    //Salida del sistema
                     case 10 ->
                         System.out.println("\n\n GRACIAS POR VISITARNOS");
 
@@ -176,5 +110,57 @@ public class Restaurante {
             System.out.println("Ocurrio un error");
             System.out.println("Informacion: " + e);
         }
+    }
+    //Creación de funciones para implementacion en el menú
+    public static void verPersonal(String var[], String var2[]){
+        for (int i = 0; i < var.length; i++) {
+            if (var[i] != null) {
+                System.out.println("cedula " + (i + 1) + " nombre: " + var[i] + " ocupacion: " + var2[i]);
+            }
+        }
+    }
+    //Listar productos
+    public static void verProductos(String name[], double precio[]){
+        for (int i = 0; i < name.length; i++) {
+            if (name[i] != null) {
+                System.out.println("["+(i + 1)+"] "+ name[i] + " precio: $" + precio[i]);
+            }
+        }
+    }
+    //Utilizar contador
+    public static int contador(String var[]){
+        int contador  =0;
+        for (int i = 0; i < var.length; i++) {
+            if (var[i] == null) {
+                contador = i;
+                break;
+            }
+        }
+        return  contador;
+    }
+    //Agregar productos
+    public static void agregarProdutos(String var[], double var2[]){
+        int contador = contador(var);
+        System.out.print("nombre: ");
+        var[contador] = consola.next();
+        System.out.print("costo: ");
+        var2[contador] = consola.nextDouble();
+        System.out.println("LA INTEGRACION FUE UN EXITO: " + var[contador] + " $" + var2[contador]);
+    }
+    //Agregar personal
+    public static void agregarPersonal(String var[], String var2[]){
+        int contador = contador(var);
+        System.out.print("nuevo empleado:\n" + "nombre: ");
+       var[contador] = consola.next();
+       System.out.print("ocupacion: ");
+       var2[contador] = consola.next();
+       System.out.println("LA ALTA FUE UN EXITO: " + var[contador] + " ocupacion: " + var2[contador]);
+    }
+    //Eliminar productos
+    public static void eliminarProductos(String nombre[], double precio[]){
+        System.out.print("¿Que indice desea eliminar? \n -> ");
+        int indice = consola.nextInt();
+        nombre[indice - 1] = null;
+        precio[indice - 1] = 0;
     }
 }
